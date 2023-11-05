@@ -1,8 +1,10 @@
 resource "arvan_iaas_abrak" "abrak" {
-  region = var.region
-  flavor = "g1-1-1-0"
-  count  = 3
-  name   = "${var.abrak_name}-${count.index}"
+  region   = var.region
+  flavor   = "g1-1-1-0"
+  count    = 3
+  name     = "${var.abrak_name}-${count.index}"
+  ssh_key  = true
+  key_name = "secure"
   image {
     type = "distributions"
     name = "debian/12"

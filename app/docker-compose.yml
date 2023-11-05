@@ -1,0 +1,29 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    restart: always
+    depends_on:
+      - postgresql
+    environment:
+      - postgresql_hostname=postgresql
+      - postgresql_database=my_database
+      - postgresql_username=my_user
+      - postgresql_password=password123
+    ports:
+      - 127.0.0.1:8000:8000
+      - 127.0.0.1:8001:8001
+
+  postgresql:
+    image: docker.arvancloud.ir/bitnami/postgresql:16
+    container_name: postgresql
+    ports:
+      - '127.0.0.1:5432:5432'
+    # volumes:
+    #   - 'postgresql_data:/bitnami/postgresql'
+    environment:
+      - POSTGRESQL_USERNAME=my_user
+      - POSTGRESQL_PASSWORD=password123
+      - POSTGRESQL_DATABASE=my_database

@@ -9,4 +9,6 @@ CONFIG_FILE=inventory/arvancluster/hosts.yaml python3 contrib/inventory_builder/
 
 ansible-playbook -i inventory/arvancluster/hosts.yaml  --become --become-user=root reset.yml
 ansible-playbook -i inventory/arvancluster/hosts.yaml  --become --become-user=root cluster.yml
+
+scp $USERNAME@$IP_CONTROLLER_0:/etc/kubernetes/admin.conf kubespray-do.conf
 ```

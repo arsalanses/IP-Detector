@@ -1,6 +1,6 @@
 resource "arvan_iaas_abrak" "abrak" {
   region   = var.region
-  flavor   = "sb1-2-1-0"
+  flavor   = "sb1-4-2-0"
   count    = 3
   name     = "${var.abrak_name}-${count.index}"
   ssh_key  = true
@@ -9,7 +9,7 @@ resource "arvan_iaas_abrak" "abrak" {
     type = "distributions"
     name = "ubuntu/22.04"
   }
-  disk_size  = 25
+  disk_size = 25
 }
 
 data "arvan_iaas_abrak" "get_abrak_id" {
@@ -32,8 +32,8 @@ resource "arvan_iaas_subnet" "subnet-1" {
   enable_gateway = true
   gateway        = "192.168.0.1"
   dns_servers = [
-    "1.1.1.1",
-    "9.9.9.9"
+    "178.22.122.100",
+    "185.51.200.2"
   ]
   enable_dhcp = true
   dhcp {

@@ -1,6 +1,9 @@
 resource "arvan_iaas_abrak" "abrak" {
-  region   = var.region
-  flavor   = "sb1-4-2-0"
+  region = var.region
+  flavor = "sb1-4-2-0"
+  # number = 3
+  # name   = var.abrak_name
+  # init_script = "sudo apt update && sudo apt upgrade -y && sudo reboot"
   count    = 3
   name     = "${var.abrak_name}-${count.index}"
   ssh_key  = true
@@ -32,12 +35,12 @@ resource "arvan_iaas_subnet" "subnet-1" {
   enable_gateway = true
   gateway        = "192.168.0.1"
   dns_servers = [
-    "178.22.122.100",
-    "185.51.200.2"
+    "1.1.1.1",
+    "9.9.9.9"
   ]
   enable_dhcp = true
   dhcp {
-    from = "192.168.0.2"
+    from = "192.168.0.3"
     to   = "192.168.0.14"
   }
 }

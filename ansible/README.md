@@ -19,3 +19,9 @@ sudo echo "$(dig +short @178.22.122.100 k8s.io) k8s.io" | sudo tee -a /etc/hosts
 sudo sed -i '1i nameserver 185.51.200.2' /etc/resolv.conf && \
 sudo sed -i '1i nameserver 178.22.122.100' /etc/resolv.conf
 ```
+
+```sh
+inventory/arvancluster/group_vars/k8s_cluster/addons
+# ingress_nginx_enabled: true
+kubectl run myshell1 -it --rm --image busybox -- sh
+```

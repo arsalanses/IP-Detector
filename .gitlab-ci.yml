@@ -3,7 +3,8 @@ stages:
 
 build-stage:
   stage: build-stage
-  image: docker:23
+  services:
+    - docker:23
   before_script:
     - docker login -u $QUAY_REGISTRY_USER -p $QUAY_REGISTRY_PASSWORD $QUAY_REGISTRY
   script:

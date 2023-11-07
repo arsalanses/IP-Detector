@@ -1,0 +1,15 @@
+stages:
+  - build-stage
+
+build-stage:
+  stage: build-stage
+  image: docker:23
+  before_script:
+    - docker login -u $QUAY_REGISTRY_USER -p $QUAY_REGISTRY_PASSWORD $QUAY_REGISTRY
+  script:
+    - docker build -t "$QUAY_REGISTRY_IMAGE:$CI_PIPELINE_ID" -f ./app/Dockerfile ./app/
+    - docker push $QUAY_REGISTRY_IMAGE:$CI_PIPELINE_ID
+  after_script:
+    - docker logout $QUAY_REGISTRY
+  only:
+    - master

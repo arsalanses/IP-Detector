@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.arsalanse.ir/name: ip-geolocation
+    # app.arsalanse.ir/version: "1.0.0"
+    # app.arsalanse.ir/component: server-api
+    # app.arsalanse.ir/managed-by: manual
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ip-geolocation-app
+  template:
+    metadata:
+      labels:
+        app: ip-geolocation-app
+    spec:
+      containers:
+      - name: ip-geolocation
+        # imagePullPolicy: IfNotPresent
+        image: quay.io/arsalanse/arvan:latest
+        env:
+        - name: postgresql_hostname
+          value: 10.233.71.2
+        - name: postgresql_database
+          value: my_database
+        - name: postgresql_username
+          value: my_user
+        - name: postgresql_password
+          value: password123
+        ports:
+        - containerPort: 8000
+          name: http-web-api
+        resources:
+          limits:
+            cpu: "0.5"
+            # ephemeral-storage: 1G
+            memory: 1G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  selector:
+    app.arsalanse.ir/name: ip-geolocation
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8001
+    targetPort: http-web-api
